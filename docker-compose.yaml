@@ -58,6 +58,7 @@ services:
       GIN_MODE: release
     networks:
       privnet:
+        ipv4_address: 10.100.200.25
         aliases:
           - amf.free5gc.org
     depends_on:
@@ -247,12 +248,34 @@ services:
       - "/dev/net/tun"
     networks:
       privnet:
+        ipv4_address: 10.100.200.20
         aliases:
-          - gnb.free5gc.org
+          - ueransim.free5gc.org
     depends_on:
       - free5gc-amf
       - free5gc-upf
-    
+
+  ue:
+    container_name: ue
+    image: free5gc/ueransim:latest
+    command: 
+      - /bin/sh 
+      - -c 
+      - "chmod +x ./config/ue-tools.sh && ./config/ue-tools.sh && ./nr-ue -c ./config/uecfg.yaml"
+    volumes:
+      - ./config/uecfg.yaml:/ueransim/config/uecfg.yaml
+      - ./config/ue-tools.sh:/ueransim/config/ue-tools.sh
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - "/dev/net/tun"
+    networks:
+      privnet:
+        aliases:
+          - ue.free5gc.org
+    depends_on:
+      - ueransim
+       
   n3iwue:
     container_name: n3iwue
     image: free5gc/n3iwue:latest
