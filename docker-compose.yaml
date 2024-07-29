@@ -67,6 +67,25 @@ services:
     depends_on:
       - free5gc-nrf
 
+  # free5gc-amf2:
+    # container_name: amf2
+    # image: free5gc/amf:v3.4.1
+    # pull_policy: always
+    # command: ./amf -c ./config/amf2cfg.yaml
+    # expose:
+    #   - "8000"
+    # volumes:
+    #   - ./config/amf2cfg.yaml:/free5gc/config/amf2cfg.yaml
+    # environment:
+    #   GIN_MODE: release
+    # networks:
+    #   privnet:
+    #     ipv4_address: 10.100.200.26
+    #     aliases:
+    #       - amf2.free5gc.org
+    # depends_on:
+    #   - free5gc-nrf
+
   free5gc-ausf:
     container_name: ausf
     image: free5gc/ausf:v3.4.1
@@ -289,6 +308,28 @@ services:
           - ue.free5gc.org
     depends_on:
       - ueransim
+  
+  # ue2:
+  #   container_name: ue2
+  #   image: free5gc/ueransim:v3.4.1
+  #   pull_policy: always
+  #   command: 
+  #     - /bin/sh 
+  #     - -c 
+  #     - "chmod +x ./config/ue-tools.sh && ./config/ue-tools.sh && ./nr-ue -c ./config/ue2cfg.yaml"
+  #   volumes:
+  #     - ./config/ue2cfg.yaml:/ueransim/config/ue2cfg.yaml
+  #     - ./config/ue-tools.sh:/ueransim/config/ue-tools.sh
+  #   cap_add:
+  #     - NET_ADMIN
+  #   devices:
+  #     - "/dev/net/tun"
+  #   networks:
+  #     privnet:
+  #       aliases:
+  #         - ue2.free5gc.org
+  #   depends_on:
+  #     - ueransim
        
   n3iwue:
     container_name: n3iwue

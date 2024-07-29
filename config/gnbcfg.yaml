@@ -13,6 +13,8 @@ gtpIp: 10.100.200.20 # gNB's local IP address for N3 Interface (Usually same wit
 amfConfigs:
   - address: 10.100.200.25
     port: 38412
+  # - address: 10.100.200.26
+  #   port: 38412
 
 # List of supported S-NSSAIs by this gNB
 slices:
