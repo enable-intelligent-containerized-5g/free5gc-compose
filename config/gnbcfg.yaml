@@ -16,6 +16,7 @@ amfConfigs:
   # - address: 10.100.200.26
   #   port: 38412
 
+
 # List of supported S-NSSAIs by this gNB
 slices:
   - sst: 0x1
